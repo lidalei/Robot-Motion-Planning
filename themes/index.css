@@ -7,11 +7,12 @@ html, body {
 	min-height: 100%;
     height: auto !important;
     height: 100%;
-	margin: 0 auto -50px;
+/*	margin: 0 auto -50px;*/
+    margin: auto auto;
 }
 
 .container {
-	// width:1000px;
+	width:100%;
 	max-width:none;
 }
 
@@ -94,11 +95,15 @@ html, body {
 
 /*
 
-Writing the game here
+Writing the game code here
 
 */
 
-
+/*
+#canvas > svg > g > path {
+    stroke-width: 6px;
+}
+*/
 
 
 #push{
