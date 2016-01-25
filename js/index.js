@@ -158,7 +158,7 @@ $(function() {
     //    console.log(vertexes);
     //    console.log(polygonEdges);
 
-        var adjacentLists = [];
+//        var adjacentLists = [];
 
         var adjacentMatrix = [];
 
@@ -167,12 +167,12 @@ $(function() {
         var vertexesNum = vertexes.length;
         // initialize with all Infinity
         for(var i = 0; i < vertexesNum; ++i) {
-            // zero row
-            var zeroRow = [];
+            // Infinity row
+            var InfinityRow = [];
             for(var j = 0; j < vertexesNum; ++j) {
-                zeroRow.push(Infinity);
+                InfinityRow.push(Infinity);
             }
-            adjacentMatrix.push(zeroRow);
+            adjacentMatrix.push(InfinityRow);
         }
 
         // first, add all edges
@@ -249,7 +249,7 @@ $(function() {
 
         return {
                 vertexes: vertexes,
-                adjacentLists: adjacentLists,
+//                adjacentLists: adjacentLists,
                 adjacentMatrix: adjacentMatrix            
                };
 
@@ -402,24 +402,12 @@ $(function() {
                     }
                 }
             }
-
-
-    //        u = distCopy.indexOf(Math.min.apply(Math, distCopy));
-    //        set[u] = true;
-    //        distCopy[u] = POS_INFINITY;
-    //
-    //        for (var i = 0; i < vertexNum; i++) {
-    //            if (!set[i] && ((temp = dist[u] + adjacenMatrix[u][i]) < dist[i])) {
-    //                distCopy[i] = dist[i] = temp;
-    //                path[i] = u;
-    //            }
-    //        }
             unvisitedVertexesNum--;
         }
 
-        console.log(unvisitedVertexes);
-        console.log(previousVertexes);
-        console.log(distances);                
+//        console.log(unvisitedVertexes);
+//        console.log(previousVertexes);
+//        console.log(distances);
 
         return false;
     }
@@ -473,7 +461,8 @@ $(function() {
         currentObstacleLineSegment = d3_svg_g.append("line").attr({"stroke": "#2ca02c"}),
         isTracing = false,
         startPoint = undefined,
-        endPoint = undefined;
+        endPoint = undefined,
+        gameHint = d3_svg.append("text").style("text-anchor", "middle").attr({"x": svgWidth / 2 - 48, "y": svgHeight - padding.bottom + 6, "class": "label"}).style("font-size", "1em").text("Click to add a vertex");
     
     var drawingStates = {
         pointRobotState: true,
@@ -505,7 +494,14 @@ $(function() {
             drawingStates.drawPolygonsState = true;
             drawingStates.drawStartEndPoints = false;
             $(this).removeClass("btn-default").addClass("btn-primary").next().removeClass("btn-primary").addClass("btn-default");
-        }    
+            
+            gameHint.text("Hint: Click to add a vertex!");
+        }
+        
+        if(startPoint != undefined || endPoint != undefined) {
+            // clear the canvas to start a new game
+            $("#clearBtn").trigger("click");
+        }
     });
     
     var drawStartEndPointsButton = $("#drawStartEndPointsBtn").click(function() {
@@ -513,6 +509,12 @@ $(function() {
             drawingStates.drawPolygonsState = false;
             drawingStates.drawStartEndPoints = true;
             $(this).removeClass("btn-default").addClass("btn-primary").prev().removeClass("btn-primary").addClass("btn-default");
+            
+            gameHint.text("Click to add a start point!");
+        }
+        if(startPoint != undefined || endPoint != undefined) {
+            // clear the canvas to start a new game
+            $("#clearBtn").trigger("click");
         }
     });
     
@@ -538,6 +540,8 @@ $(function() {
                     startPoint = undefined;
                     endPoint = undefined;
                     drawPolygonsButton.trigger("click");
+                    
+                    currentObstacleLineSegment.attr({"x1":0, "y1":0, "x2": 0, "y2":0});
                 }
             }]
             
@@ -570,27 +574,39 @@ $(function() {
                             }
                         }
                     });
-                }            
+                    // update the hint
+                    gameHint.text("Good job!");
+                }
+                else {
+                    // update the hint
+                    gameHint.text("Keep clicking to add a new vertex or Press spacer to end the polygon.");
+                }
                 currentObstacle.push([xCoordinator, yCoordinator]);
                 currentObstaclePath.attr({"d": line(currentObstacle)});
             }
             else {
-                
-                // draw start / end points
-                if(startPoint == undefined) {
-                    startPoint = [xCoordinator, yCoordinator];
-                    d3_svg_g.append("circle").attr({"cx": xCoordinator, "cy": yCoordinator, "r": "6px", "fill": "#00ff00"});
-                }
-                else if(endPoint == undefined){
-                    endPoint = [xCoordinator, yCoordinator];
-                    d3_svg_g.append("circle").attr({"cx": xCoordinator, "cy": yCoordinator, "r": "6px", "fill": "#ff0000"});
-                    var a_shortestPath = shortestPath(obstacles, startPoint, endPoint);
-                    console.log(a_shortestPath);
+                if(drawingStates.pointRobotState) { // point robot
+                    // draw start / end points
+                    if(startPoint == undefined) {
+                        startPoint = [xCoordinator, yCoordinator];
+                        d3_svg_g.append("circle").attr({"cx": xCoordinator, "cy": yCoordinator, "r": "6px", "fill": "#00ff00"});
+                        gameHint.text("Click to add an end point!");
+                    }
+                    else if(endPoint == undefined){
+                        endPoint = [xCoordinator, yCoordinator];
+                        d3_svg_g.append("circle").attr({"cx": xCoordinator, "cy": yCoordinator, "r": "6px", "fill": "#ff0000"});
+                        var a_shortestPath = shortestPath(obstacles, startPoint, endPoint);
+                        console.log(a_shortestPath);
 
-                    d3_svg_g.append("path").attr({"d": line(a_shortestPath), "fill": "none", "stroke": colorOrdinalScale(Math.random() * 9), "stroke-width": "4px"});
+                        d3_svg_g.append("path").attr({"d": line(a_shortestPath), "fill": "none", "stroke": colorOrdinalScale(Math.random() * 9), "stroke-width": "4px"});
+
+                        gameHint.text("Good job!");
+                    }
+                }
+                else { // polygonal robot
+                    
                 }
             }
-
         }
 
 //        console.log(event);
@@ -606,6 +622,7 @@ $(function() {
                 $("#gameBoundary").off("mouseover");
                 currentObstacleLineSegment.attr({"x1": 0, "y1": 0, "x2": 0, "y2":0});
             }
+            gameHint.text("Good job! Click to add a new polygon or set the start / end points.");
         }
 //        console.log(obstacles);
 //        console.log(key);
