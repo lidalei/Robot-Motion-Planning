@@ -460,10 +460,12 @@ $(function() {
         currentObstaclePath = undefined,
         currentObstacleLineSegment = d3_svg_g.append("line").attr({"stroke": "#2ca02c"}),
         isTracing = false,
+        polyRobot = undefined,
         startPoint = undefined,
         endPoint = undefined,
         gameHint = d3_svg.append("text").style("text-anchor", "middle").attr({"x": svgWidth / 2 - 48, "y": svgHeight - padding.bottom + 6, "class": "label"}).style("font-size", "1em").text("Click to add a vertex");
     
+    // drawing states, used to control the interactive behaviors
     var drawingStates = {
         pointRobotState: true,
         polygonalRobotState: false,
@@ -604,7 +606,7 @@ $(function() {
                     }
                 }
                 else { // polygonal robot
-                    
+                   // TODO 
                 }
             }
         }

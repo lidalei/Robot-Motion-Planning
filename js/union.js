@@ -40,7 +40,7 @@ console.log(broaden(map,player));
    * @description Dilate polygons and compute the union set of dilated polygons.
    * @param {Array} map: several polygons on canvas, structure: [[[x1,y1],[x2,y2],[x3,y3],...],[[x4,y4],[x5,y5],[x6,y6],...]]
    * @param {Array} player: player's polygon, structure: [[x1,y1],[x2,y2],[x3,y3],...]
-   * @return {Array} setOne: polygons after dilating and union, structure: [[[x1,y1],[x2,y2],[x3,y3],...],[[x4,y4],[x5,y5],[x6,y6],...]]
+   * @return {Array} {dilate : newMap, route : setOne}: dilating result and union result respectively
    */
 function broaden(map, player){
   var newMap = [];
@@ -75,7 +75,7 @@ function broaden(map, player){
     }
   }
 
-  return setOne;
+  return {dilate : newMap, route : setOne};
 }
 
 /**
