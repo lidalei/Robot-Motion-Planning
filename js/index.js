@@ -464,7 +464,9 @@ $(function() {
         polyRobotPath = undefined,
         isDrawingPolyRobot = false;
         startPoint = undefined,
+        startPointCircle = undefined,
         endPoint = undefined,
+        endPointCircle = undefined,
         dilatedMap = undefined,
         gameHint = d3_svg.append("text").style("text-anchor", "middle").attr({"x": svgWidth / 2 - 48, "y": svgHeight - padding.bottom + 6, "class": "label"}).style("font-size", "1em").text("Click to add a vertex");
     
@@ -595,17 +597,23 @@ $(function() {
                 else { // draw start / end points
                     if(startPoint == undefined) {
                         startPoint = [xCoordinator, yCoordinator];
-                        d3_svg_g.append("circle").attr({"cx": xCoordinator, "cy": yCoordinator, "r": "6px", "fill": "#00ff00"});
+                        startPointCircle = d3_svg_g.append("circle").attr({"cx": xCoordinator, "cy": yCoordinator, "r": "6px", "fill": "#00ff00"});
                         gameHint.text("Click to add an end point!");
                     }
                     else if(endPoint == undefined){
                         endPoint = [xCoordinator, yCoordinator];
-                        d3_svg_g.append("circle").attr({"cx": xCoordinator, "cy": yCoordinator, "r": "6px", "fill": "#ff0000"});
+                        endPointCircle = d3_svg_g.append("circle").attr({"cx": xCoordinator, "cy": yCoordinator, "r": "6px", "fill": "#ff0000"});
                         var a_shortestPath = shortestPath(obstacles, startPoint, endPoint);
                         console.log(a_shortestPath);
 
-                        d3_svg_g.append("path").attr({"d": line(a_shortestPath), "fill": "none", "stroke": colorOrdinalScale(Math.random() * 9), "stroke-width": "4px"});
-
+                        var theShortestPath = d3_svg_g.append("path").attr({"d": line(a_shortestPath), "fill": "none", "stroke": colorOrdinalScale(Math.random() * 9), "stroke-width": "4px"});
+                        
+                        // move the robot along the line
+                        startPointCircle.transition()
+                            .duration(7500)
+                            .attrTween("transform", translateAlong(theShortestPath.node()))
+                            .each("end", function() {startPointCircle.attr({"transform": "translate(0, 0)"})});
+                        
                         gameHint.text("Good job!");
                     }
                 }
@@ -661,12 +669,12 @@ $(function() {
                         console.log("Shortest path:" + a_shortestPath);
 
                         var theShortestPath = d3_svg_g.append("path").attr({"d": line(a_shortestPath), "fill": "none", "stroke": colorOrdinalScale(Math.random() * 9), "stroke-width": "4px"});
-
+                        
                         // move the robot along the line
                         polyRobotPath.transition()
                             .duration(7500)
-                            .attrTween("transform", translateAlong(theShortestPath.node()));
-//                            .each("end", transition);// infinite loop
+                            .attrTween("transform", translateAlong(theShortestPath.node()))
+                            .each("end", function() {polyRobotPath.attr({"transform": "translate(0, 0)"})});
                         
                         gameHint.text("Good job!");
                     }
@@ -674,7 +682,7 @@ $(function() {
             }
         }
 //        console.log(event);
-    });
+    });    
     
     // move a polygon along a path, from http://bl.ocks.org/KoGor/8162640
     function translateAlong(path) {
@@ -682,7 +690,7 @@ $(function() {
         return function(i) {
             return function(t) {
                 var p = path.getPointAtLength(t * l);
-                return "translate(" + p.x + "," + p.y + ")"; // move polygon
+                return "translate(" + (p.x - startPoint[0]) + "," + (p.y - startPoint[1]) + ")"; // move polygon
             }
         }
     }
@@ -717,10 +725,9 @@ $(function() {
                 obstacles.push(currentObstacle);
                 currentObstacle = undefined;
                 isTracing = false;
-                $("#gameBoundary").off("mouseover");
+//                $("#gameBoundary").off("mouseover");
             }
-            if(isDrawingPolyRobot) {
-                // end the polygonal robot drawing state, and show the dilated obstacles
+            if(isDrawingPolyRobot) { // end the polygonal robot drawing state, and show the dilated obstacles
                 
                 // dilate the obstacles
 
@@ -738,7 +745,7 @@ $(function() {
                     d3_svg_g.append("path").attr({"d": line(obstacle), "fill": "rgba(0, 0, 0, 0.2)"});
                 });
                 
-                
+                // set drawing polygonal robot state false
                 isDrawingPolyRobot = false;
                 gameHint.text("Good job! Click to set the end point.");
             }
