@@ -878,37 +878,48 @@ $(function() {
        * @return {Array} R: polygon after computing Minknowski Sum, structure: [[x1,y1],[x2,y2],[x3,y3],...]
        */
     function minkowskiSum(P, Q){
-      var i = 0, j = 0;
+        var i = 0, j = 0;
 
-      //push the first two points of P and Q into P and Q.
-      P.push(P[0], P[1]);
-      Q.push(Q[0], Q[1]);
+        //push the first two points of P and Q into P and Q.
+        P.push(P[0], P[1]);
+        Q.push(Q[0], Q[1]);
 
-      var R = []; 
+        var R = []; 
 
-      do {
-        R.push([P[i][0]+Q[j][0] , P[i][1]+Q[j][1]]);
+        do {
+            R.push([P[i][0]+Q[j][0] , P[i][1]+Q[j][1]]);
 
-        //compute segment and x-axis positive's angle. 
-        var angle1 = angleWithXAxisPositive(P[i], P[i+1]);
+            //compute segment and x-axis positive's angle. 
+            var angle1 = angleWithXAxisPositive(P[i], P[i+1]);
 
-        var angle2 = angleWithXAxisPositive(Q[j], Q[j+1]);
+            var angle2 = angleWithXAxisPositive(Q[j], Q[j+1]);
 
-        //compare angle, and return points. 
-        if(angle1<angle2){
-          i = i+1;
+            //compare angle, and return points. 
+            if(angle1<angle2){
+              i = i+1;
+            }
+            else if(angle1>angle2){
+              j = j+1;
+            }
+            else{
+              i = i+1;
+              j = j+1;
+            }
+
+        } while(i < P.length-1 && j < Q.length-1);
+        
+        if(i == P.length - 1) {
+            for(; j < Q.length - 1; ++j) {
+                R.push([P[i-1][0]+Q[j][0] , P[i-1][1]+Q[j][1]]);
+            }
         }
-        else if(angle1>angle2){
-          j = j+1;
-        }
-        else{
-          i = i+1;
-          j = j+1;
+        else if(j == Q.length - 1) {
+            for(; i < P.length - 1; ++i) {
+                R.push([P[i][0]+Q[j-1][0] , P[i][1]+Q[j-1][1]]);
+            }
         }
 
-      } while(i < P.length-1 && j < Q.length-1);
-
-      return R;
+        return R;
     }
 
     // compute the angle between pq and x axis positive
