@@ -1,0 +1,6 @@
+{
+  "name": "Robot-motion-planning",
+  "tagline": "Help students to understand robot motion planning algorithm better",
+  "body": "# Robot Motion Planning Game.\r\nThis game is designed to help students get acquainted with the concept of robot motion planning.\r\n# Algorithm and Strategies.\r\nThis game is based on Visibility Graph.\r\n# How to run the game.\r\nIn windows, type \"cmd\" in the address bar and press enter and then type \"index.bat\" and press enter.\r\nIn Linux/Mac, open the shell window and type \"./index.sh\" and press enter.\r\nThen type \"127.0.0.1:8000\" or \"localhost:8000\" in the address bar of your browser, which will directly start the game.\r\nIn fact, you can directly open the \"index.html\" file with your browser. However, to protect your computer, please use the tips above (Of course, we will never deliberately harm your computer).\r\n# How to play.\r\nThere is a hint below the canvas, which is used to help the user get to know how to play the game.\r\n# Copyright.\r\nYou can find the authors within the game page. If you would like to use the code, please send email to anyone of us. We're very glad to share the game with you.\r\n# Last but not the least\r\nEnjoy the game, and enjoy Geometric Algorithms!\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}

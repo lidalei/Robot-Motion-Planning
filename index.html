@@ -1,80 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
   <head>
-	<meta charset="utf-8">
-    <title>Geometric Algorithms Project</title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="themes/bootstrap.min.css">    
-    <link rel="stylesheet" href="themes/jquery-ui-1.10.0.custom.css">
-    <link rel="stylesheet" href="themes/jquery.ui.1.10.0.ie.css">    
-	<link rel="stylesheet" href="themes/index.css">
+    <meta charset="UTF-8">
+    <title>Robot-motion-planning by lidalei</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
   <body>
-  	<!-- Part 1: Wrap all page content here -->
-  	<div id="wrapper">
-	  	<div class="navbar navbar-default navbar-static-top" role="navigation">
-	      <div class="container">
-	        <div class="navbar-header">
-	          <a href="" class="navbar-brand">Robot Motion Planning</a>
-	        </div>
-	      </div>
-	    </div>
-	    <!-- Content -->
-	    <div id="content" class="container">
-            <div class="row">
-                <div class="col-xs-10">
-                    <div id="canvas">
-                        <svg style="width: 100%; height:550px;">
-                            <!--group, contains the visualized charts-->
-                            <g></g>
-                        </svg>
-                    </div>
-                </div>
-                <div class="col-xs-2" style="margin-top: 20px;" id = "tools">
-                    <div class="column">
-                        <div class="row-xs-2" style="margin-top: 16px;">
-                            <div class="btn-group" role="group" aria-label="point-polygon-robot">
-                                <button type="button" class="btn btn-success" id="pointRobotBtn">Point-</button>
-                                <button type="button" class="btn btn-default" id="polygonalRobotBtn">Poly- Robot</button>
-                            </div>
-                        </div>
-                        <div class="row-xs-6" style="margin-top: 16px;">
-                            <div class="btn-group-vertical" role="group" aria-label="draw-polygon-start-point">
-                                <button type="button" class="btn btn-primary" id="drawPolygonsBtn">Draw Polygons</button>
-                                <button type="button" class="btn btn-default" id="drawStartEndPointsBtn">Draw Start / End points</button>
-                            </div>
-                        </div>
-                        <div class="row-xs-4" style="margin-top: 200px;">
-                            <div class="btn-group" role="group" aria-label="point-polygon-robot">
-                               <button type="button" class="btn btn-danger" id="clearBtn">Clear</button> 
-                            </div>
-<!--
-                            <div id="gameHint" style="margin-top: 16px;">
-                                <p>Hint: Click to add a vertex.</p>
-                            </div>
--->
-                        </div>
-                    </div>
-                </div>
-            </div>
-  	</div>
-	<!-- back to top -->
-	<div id="backToTop">
-		<a href="#" title="Scroll back to top"></a>
-	</div>
-	<div id="footer">
-		<div class="container">
-			<p class="text-muted" style="text-align: center;">Copyright &copy; <a href="mailto:j.li.4@student.tue.nl">Jing Li</a>, <a href="mailto:x.fu@student.tue.nl">Xinye Fu</a>, <a href="mailto:d.li@student.tue.nl">Dalei Li</a>. Please enable JavaScript.</p>
-		</div>
-	</div>
-	<div id="dialog" title="Basic dialog"></div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery-2.2.0.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-ui-1.10.0.custom.min.js"></script>
-	<script src="js/d3.min.js"></script>
-    <script src="js/index.js"></script>
+    <section class="page-header">
+      <h1 class="project-name">Robot-motion-planning</h1>
+      <h2 class="project-tagline">Help students to understand robot motion planning algorithm better</h2>
+      <a href="https://github.com/lidalei/Robot-Motion-Planning" class="btn">View on GitHub</a>
+      <a href="https://github.com/lidalei/Robot-Motion-Planning/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/lidalei/Robot-Motion-Planning/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="robot-motion-planning-game" class="anchor" href="#robot-motion-planning-game" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Robot Motion Planning Game.</h1>
+
+<p>This game is designed to help students get acquainted with the concept of robot motion planning.</p>
+
+<h1>
+<a id="algorithm-and-strategies" class="anchor" href="#algorithm-and-strategies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Algorithm and Strategies.</h1>
+
+<p>This game is based on Visibility Graph.</p>
+
+<h1>
+<a id="how-to-run-the-game" class="anchor" href="#how-to-run-the-game" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to run the game.</h1>
+
+<p>In windows, type "cmd" in the address bar and press enter and then type "index.bat" and press enter.
+In Linux/Mac, open the shell window and type "./index.sh" and press enter.
+Then type "127.0.0.1:8000" or "localhost:8000" in the address bar of your browser, which will directly start the game.
+In fact, you can directly open the "index.html" file with your browser. However, to protect your computer, please use the tips above (Of course, we will never deliberately harm your computer).</p>
+
+<h1>
+<a id="how-to-play" class="anchor" href="#how-to-play" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to play.</h1>
+
+<p>There is a hint below the canvas, which is used to help the user get to know how to play the game.</p>
+
+<h1>
+<a id="copyright" class="anchor" href="#copyright" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Copyright.</h1>
+
+<p>You can find the authors within the game page. If you would like to use the code, please send email to anyone of us. We're very glad to share the game with you.</p>
+
+<h1>
+<a id="last-but-not-the-least" class="anchor" href="#last-but-not-the-least" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Last but not the least</h1>
+
+<p>Enjoy the game, and enjoy Geometric Algorithms!</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/lidalei/Robot-Motion-Planning">Robot-motion-planning</a> is maintained by <a href="https://github.com/lidalei">lidalei</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
   </body>
 </html>
